@@ -3,15 +3,15 @@
 
 using namespace std;
 
-//ÓÅÏÈ¼¶¶¨Òå£¬ÓÅÏÈ¼¶´óµÄÏÈÔËËã
-//Êı×ÖÊÓÎªÓÅÏÈ¼¶×î¸ß
+//ä¼˜å…ˆçº§å®šä¹‰ï¼Œä¼˜å…ˆçº§å¤§çš„å…ˆè¿ç®—
+//æ•°å­—è§†ä¸ºä¼˜å…ˆçº§æœ€é«˜
 enum priority
 {
 	ADD, MUL, NUM
 };
 
-//Õ»ÖĞµÄ½Úµã£¬±£´æ±í´ïÊ½ÒÔ¼°ÔËËãÓÅÏÈ¼¶
-//¿ÉÒÔ¸ø±í´ïÊ½¼Ó()
+//æ ˆä¸­çš„èŠ‚ç‚¹ï¼Œä¿å­˜è¡¨è¾¾å¼ä»¥åŠè¿ç®—ä¼˜å…ˆçº§
+//å¯ä»¥ç»™è¡¨è¾¾å¼åŠ ()
 struct Node
 {
 	string exp;
@@ -23,15 +23,15 @@ struct Node
 		next = NULL;
 	}
 
-	/*¼Ó()*/
+	/*åŠ ()*/
 	void addParentheses()
 	{
 		exp = '(' + exp + ')';
 	}
 };
 
-//Õ»
-//Ö÷Òª²Ù×÷ÊÇÈëÕ»ºÍ³öÕ»
+//æ ˆ
+//ä¸»è¦æ“ä½œæ˜¯å…¥æ ˆå’Œå‡ºæ ˆ
 struct Stack
 {
 	Node *end;
@@ -39,7 +39,7 @@ struct Stack
 
 	Stack()
 	{
-		end = new Node;   //end½ÚµãÎŞÒâÒå,Ö»ÊÇ·½±ã²Ù×÷
+		end = new Node;   //endèŠ‚ç‚¹æ— æ„ä¹‰,åªæ˜¯æ–¹ä¾¿æ“ä½œ
 		top = end;
 	}
 
@@ -60,14 +60,14 @@ struct Stack
 		return top == end;
 	}
 
-	/*ÈëÕ»*/
+	/*å…¥æ ˆ*/
 	void push(Node *node)
 	{
 		node->next = top;
 		top = node;
 	}
 
-	/*³öÕ»*/
+	/*å‡ºæ ˆ*/
 	Node* pop()
 	{
 		if (isEmpty())
@@ -84,7 +84,7 @@ int main()
 {
 	string postfixExp;
 	cin >> postfixExp;
-	Stack *exps = new Stack;		//±í´ïÊ½Õ»
+	Stack *exps = new Stack;		//è¡¨è¾¾å¼æ ˆ
 
 	int len = postfixExp.length();
 	for (int i = 0; i < len; i++)
@@ -113,17 +113,17 @@ int main()
 			}
 			Node *subExp = new Node;
 			subExp->exp = leftExp->exp + op + rightExp->exp;
-			subExp->priority = pri;	//¸üĞÂÔËËãÓÅÏÈ¼¶
-			//ĞÂ±í´ïÊ½ÈëÕ»
+			subExp->priority = pri;	//æ›´æ–°è¿ç®—ä¼˜å…ˆçº§
+			//æ–°è¡¨è¾¾å¼å…¥æ ˆ
 			exps->push(subExp);
 
-			//ÊÍ·Å
+			//é‡Šæ”¾
 			delete leftExp;
 			delete rightExp;
 		}
 		else
 		{
-			//Êı×ÖÊÇÒ»¸ö±í´ïÊ½,Ö±½ÓÈëÕ»
+			//æ•°å­—æ˜¯ä¸€ä¸ªè¡¨è¾¾å¼,ç›´æ¥å…¥æ ˆ
 			Node *t = new Node;
 			t->exp += postfixExp[i];
 			t->priority = NUM;
@@ -131,8 +131,8 @@ int main()
 		}
 	}
 
-	//×îÖÕ½á¹ûÔÚÕ»µ×
-	cout << exps->pop()->exp << endl;			//ÄÚ´æĞ¹Â©¾¯¸æ
+	//æœ€ç»ˆç»“æœåœ¨æ ˆåº•
+	cout << exps->pop()->exp << endl;			//å†…å­˜æ³„æ¼è­¦å‘Š
 
 	delete exps;
 
